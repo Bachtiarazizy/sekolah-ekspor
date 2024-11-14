@@ -1,20 +1,11 @@
-// middleware.ts
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+// This example protects all routes including api/trpc routes
+// Please edit this to allow other routes to be public as needed.
 
-const isPublicRoute = createRouteMatcher(["/", "/api/trpc/public/(.*)", "/api/webhooks/(.*)"]);
+import { authMiddleware } from "@clerk/nextjs/server";
 
-export default clerkMiddleware((auth, req: NextRequest) => {
-  if (isPublicRoute(req)) {
-    return NextResponse.next();
-  }
-
-  // Optional: Add custom authorization logic here
-  // Example: Check for specific roles or permissions
-  // const { userId, sessionId } = auth;
-
-  return NextResponse.next();
+// See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
+export default authMiddleware({
+  publicRoutes: ["/", "/api/webhook"],
 });
 
 export const config = {
