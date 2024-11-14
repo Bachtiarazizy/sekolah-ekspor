@@ -14,7 +14,7 @@
     "seed": "node --loader ts-node/esm scripts/seed.ts"
   },
   "dependencies": {
-    "@clerk/nextjs": "^5.7.3",
+    "@clerk/nextjs": "^6.3.3",
     "@hello-pangea/dnd": "^17.0.0",
     "@hookform/resolvers": "^3.9.0",
     "@mux/mux-node": "^8.8.0",
