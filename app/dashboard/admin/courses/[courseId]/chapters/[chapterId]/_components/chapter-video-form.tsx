@@ -5,7 +5,7 @@ import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import MuxPlayer from "@mux/mux-player-React";
+import MuxPlayer from "@mux/mux-player-react";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Pencil, PlusCircle, Video } from "lucide-react";
@@ -42,7 +42,7 @@ export default function ChapterVideoForm({ initialData, courseId, chapterId }: C
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, values);
-      toast.success("Chapter Updated");
+      toast.success("Chapter updated");
       toggleEdit();
       router.refresh();
     } catch {
@@ -59,13 +59,13 @@ export default function ChapterVideoForm({ initialData, courseId, chapterId }: C
           {!isEditing && !initialData?.videoUrl && (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Add a Video
+              Add a video
             </>
           )}
           {!isEditing && initialData?.videoUrl && (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit Image
+              Edit video
             </>
           )}
         </Button>
@@ -90,10 +90,10 @@ export default function ChapterVideoForm({ initialData, courseId, chapterId }: C
               }
             }}
           />
-          <div className="text-xs text-muted-foreground mt-4">Upload this chapter video</div>
+          <div className="text-xs text-muted-foreground mt-4">Upload this chapter&apos;s video</div>
         </div>
       )}
-      {initialData.videoUrl && !isEditing && <div className="text-xs to-muted-foreground mt-2">video can take a few minutes to a process.Refresh the page if the video does not apppear</div>}
+      {initialData.videoUrl && !isEditing && <div className="text-xs text-muted-foreground mt-2">Videos can take a few minutes to process. Refresh the page if the video does not appear.</div>}
     </div>
   );
 }
