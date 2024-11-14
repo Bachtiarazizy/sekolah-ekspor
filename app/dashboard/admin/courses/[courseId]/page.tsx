@@ -15,7 +15,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 export default async function Page({ params }: { params: { courseId: string } }) {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (!userId) {
     return redirect("/");

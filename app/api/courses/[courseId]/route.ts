@@ -10,7 +10,7 @@ const muxClient = new Mux({
 
 export async function DELETE(req: Request, { params }: { params: { courseId: string; chapterId: string } }) {
   try {
-    const { userId } = auth();
+    const { userId } = await auth();
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -55,7 +55,7 @@ export async function DELETE(req: Request, { params }: { params: { courseId: str
 
 export async function PATCH(req: Request, { params }: { params: { courseId: string } }) {
   try {
-    const { userId } = auth();
+    const { userId } = await auth();
     const { courseId } = params;
     const values = await req.json();
 

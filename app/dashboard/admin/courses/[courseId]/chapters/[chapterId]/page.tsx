@@ -12,7 +12,7 @@ import { Banner } from "@/components/ui/banner";
 import { ChapterAction } from "./_components/chapter-action";
 
 export default async function Page({ params }: { params: { courseId: string; chapterId: string } }) {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (!userId) {
     return redirect("/");

@@ -7,7 +7,7 @@ import { columns } from "./_components/column";
 import { auth } from "@clerk/nextjs/server";
 
 const CoursesPage = async () => {
-  const { userId } = auth();
+  const { userId } = await auth();
   if (!userId) {
     return redirect("/");
   }
