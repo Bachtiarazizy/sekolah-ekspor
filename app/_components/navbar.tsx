@@ -6,10 +6,10 @@ import { useAuth } from "@clerk/nextjs";
 import { isTeacher } from "@/lib/teacher";
 
 export default function Navbar() {
-  const { userId } = useAuth();
+  // const { userId } = useAuth();
 
   // Determine dashboard link based on user role
-  const dashboardLink = isTeacher(userId) ? "/dashboard/teacher/courses" : "/dashboard/student/dashboard";
+  // const dashboardLink = isTeacher(userId) ? "/dashboard/teacher/courses" : "/dashboard/student/dashboard";
 
   return (
     <div className="w-full flex justify-between items-center bg-white px-4 py-5 sm:px-6 lg:px-16 border-b shadow-sm sticky top-0 z-20">
@@ -27,7 +27,7 @@ export default function Navbar() {
 
         {/* Komponen untuk user yang sudah login */}
         <SignedIn>
-          <Link href={dashboardLink}>
+          <Link href="dashboard/teacher/courses">
             <Button>Dashboard</Button>
           </Link>
           <UserButton
