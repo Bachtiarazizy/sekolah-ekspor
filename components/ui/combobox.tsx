@@ -24,7 +24,7 @@ export const Combobox = ({ options, value, onChange }: ComboboxProps) => {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" role="combobox" aria-expanded={open} className="w-full justify-between">
-          {value ? options.find((option) => option.value === value)?.label : "Select framework..."}
+          {value ? options.find((option) => option.value === value)?.label : "Select category..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

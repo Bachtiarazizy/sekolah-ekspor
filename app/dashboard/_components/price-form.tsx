@@ -66,7 +66,7 @@ export default function PriceForm({ initialData, courseId }: PriceFormProps) {
         </Button>
       </div>
       {!isEditing ? (
-        <p className={`text-sm mt-2 ${!initialData.price ? "text-slate-500 italic" : ""}`}>{initialData.price ? formatPrice(initialData.price) : "Not Set"}</p>
+        <p className={`text-sm mt-2 ${!initialData.price ? "text-slate-500 italic" : ""}`}>{initialData.price ? formatPrice(initialData.price) : "Not Price"}</p>
       ) : (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">

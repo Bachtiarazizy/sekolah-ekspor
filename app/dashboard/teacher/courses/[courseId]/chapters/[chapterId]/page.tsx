@@ -47,7 +47,7 @@ export default async function Page({ params }: { params: { courseId: string; cha
       <div className="p-6">
         <div className="flex items-center justify-between">
           <div className="w-full">
-            <Link href={`/dashboard/admin/courses/${params.courseId}`} className="flex items-center text-sm hover:opacity-75 transition mb-6">
+            <Link href={`/dashboard/teacher/courses/${params.courseId}`} className="flex items-center text-sm hover:opacity-75 transition mb-6">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Course Setup
             </Link>

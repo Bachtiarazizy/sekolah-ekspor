@@ -41,7 +41,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     <div>
       <div className="flex items-center py-4">
         <Input placeholder="Filter titles..." value={(table.getColumn("title")?.getFilterValue() as string) ?? ""} onChange={(event) => table.getColumn("title")?.setFilterValue(event.target.value)} className="max-w-sm" />
-        <Link href="/teacher/create" className={cn(buttonVariants({}), "ml-auto flex items-center gap-1")}>
+        <Link href="/dashboard/teacher/create" className={cn(buttonVariants({}), "ml-auto flex items-center gap-1")}>
           <FilePlus2Icon className="h-4 w-4" /> Create
         </Link>
       </div>

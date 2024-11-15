@@ -27,7 +27,7 @@ export const ChapterAction = ({ courseId, chapterId, isPublished, disabled }: Ch
       await axios.delete(`/api/courses/${courseId}/chapters/${chapterId}`);
       toast.success("Chapter Deleted");
       router.refresh();
-      router.push(`/dashboard/admin/courses/${courseId}`);
+      router.push(`/dashboard/teacher/courses/${courseId}`);
     } catch {
       toast.error("Something went wrong");
     } finally {

@@ -11,7 +11,6 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import toast from "react-hot-toast";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
-import { Textarea } from "@/components/ui/textarea";
 import { Course } from "@prisma/client";
 import { Combobox } from "@/components/ui/combobox";
 

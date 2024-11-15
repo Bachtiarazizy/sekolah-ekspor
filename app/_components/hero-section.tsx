@@ -1,10 +1,8 @@
 import React from "react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import Marquee from "react-fast-marquee";
 import Image from "next/image";
-import { auth } from "@clerk/nextjs/server";
 
 const courses = [
   {
@@ -82,9 +80,10 @@ interface courseProps {
   image: string;
   title: string;
 }
+
 const CourseImage = ({ course }: { course: courseProps }) => {
   return (
-    <div className="w-full  h-[260px] rounded-xl border-2 !mx-4 group relative overflow-hidden">
+    <div className="w-full h-[260px] rounded-xl border-2 group relative overflow-hidden">
       <span className="opacity-0 duration-300 group-hover:opacity-100 absolute z-50 bottom-0 left-0 text-foreground bg-background px-4 py-2 text-lg rounded-tr-xl">{course.title}</span>
       <Image width={1000} height={500} src={course.image} alt="image" className="h-full w-full object-cover" />
     </div>
@@ -93,35 +92,14 @@ const CourseImage = ({ course }: { course: courseProps }) => {
 
 const page = () => {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 max-w-full overflow-x-hidden">
       <section className="flex flex-col items-center justify-center h-full container gap-6 pt-10 md:pt-24 lg:pt-36">
         <h1 className="font-bold text-2xl max-w-none sm:text-3xl sm:max-w-3xl md:text-4xl md:max-w-4xl lg:text-6xl lg:max-w-6xl text-center">
-          {/* Teaching in the Internet age means we must teach <span className="text-primary">tomorrow&apos;s</span> skills today */}
           Preparing Indonesia's <span className="text-primary">Future Export Leaders</span>
         </h1>
-        <p className="text-muted-foreground text-sm md:text-base max-w-3xl text-center font-light">
-          {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi a asperiores dolorem temporibus assumenda placeat fugit nobis eaque neque aperiam, earum, aliquid dignissimos aspernatur enim.
-           */}
-          Empowering the Next Generation of Indonesian Export Champions
-        </p>
-        {/* <div className="flex items-center justify-center gap-3">
-          {userId ? (
-            <Link className={cn(buttonVariants({ size: "lg" }), "duration-300 transition-all")} href="/dashboard">
-              Dashboard
-            </Link>
-          ) : (
-            <>
-              <Link className={cn(buttonVariants({ size: "lg" }), "duration-300 transition-all")} href="/sign-up">
-                Sign up
-              </Link>
-            </>
-          )}
-          <Link className={cn(buttonVariants({ variant: "outline", size: "lg" }), "duration-300 transition-all")} href="https://github.com/AbdulrahmanNahhas/nahhas-lms">
-            Github
-          </Link>
-        </div> */}
+        <p className="text-muted-foreground text-sm md:text-base max-w-3xl text-center font-light">Empowering the Next Generation of Indonesian Export Champions</p>
       </section>
-      <section className="flex flex-col items-center justify-center h-full gap-6 py-14 w-screen">
+      <section className="flex flex-col items-center justify-center h-full gap-6 py-14 w-full">
         <Marquee pauseOnClick={true} className="!rotate-[-4deg]" speed={30}>
           {courses.map((item, index) => (
             <CourseImage course={item} key={index} />
@@ -133,26 +111,6 @@ const page = () => {
           ))}
         </Marquee>
       </section>
-      {/* <section className="flex flex-col items-center justify-center h-full container gap-6 py-14">
-        <h1 className="font-bold text-xl max-w-none sm:text-2xl sm:max-w-2xl md:text-3xl md:max-w-3xl lg:text-5xl lg:max-w-5xl text-center">
-          Latest Courses
-          <p className="text-muted-foreground text-sm md:text-base max-w-3xl text-center font-light mt-3">
-            Find the best course for yourself.
-          </p>
-        </h1>
-        <Home_CoursesList />
-        <Link
-          href="/search"
-          className={cn(
-            buttonVariants({ variant: "link" }),
-            "text-foreground underline hover:no-underline hover:bg-accent flex gap-2 items-center"
-          )}
-        >
-          <span>See All</span>
-          <FiExternalLink />
-        </Link>
-      </section>
-      <BentoGrid /> */}
     </div>
   );
 };

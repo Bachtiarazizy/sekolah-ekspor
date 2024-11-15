@@ -8,10 +8,11 @@ import { MoreHorizontal } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import axios from "axios";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 export const columns: ColumnDef<Course>[] = [
   {
@@ -38,9 +39,9 @@ export const columns: ColumnDef<Course>[] = [
     },
     cell: ({ row }) => {
       const price = parseFloat(row.getValue("price"));
-      const formatted = Intl.NumberFormat("en-US", {
+      const formatted = Intl.NumberFormat("id-ID", {
         style: "currency",
-        currency: "TRY",
+        currency: "IDR",
       }).format(price);
 
       return (
@@ -64,6 +65,8 @@ export const columns: ColumnDef<Course>[] = [
     },
     cell: ({ row }) => {
       const isPublished = row.getValue("isPublished") || false;
+      const [isLoading, setIsLoading] = useState(false);
+      const router = useRouter();
 
       return (
         <Badge variant={isPublished ? "default" : "secondary"}>
@@ -82,13 +85,20 @@ export const columns: ColumnDef<Course>[] = [
     id: "actions",
     cell: ({ row }) => {
       const course = row.original;
+      const [isLoading, setIsLoading] = useState(false);
+      const router = useRouter();
+
       const onDelete = async () => {
         try {
+          setIsLoading(true);
           await axios.delete(`/api/courses/${course.id}`);
-          toast.success("Course deleted!");
-          redirect(`/dashboard/admin/courses`);
-        } catch (error) {
-          toast.error("Something went wrong!");
+          toast.success("Course Deleted");
+          router.refresh();
+          router.push(`/dashboard/teacher/courses`);
+        } catch {
+          toast.error("Something went wrong");
+        } finally {
+          setIsLoading(false);
         }
       };
 
@@ -114,7 +124,7 @@ export const columns: ColumnDef<Course>[] = [
                   View Course
                 </DropdownMenuItem>
               </Link>
-              <Link href={`/teacher/courses/${course.id}`}>
+              <Link href={`/dashboard/teacher/courses/${course.id}`}>
                 <DropdownMenuItem>
                   <Edit2 className="w-4 h-4 mr-2" />
                   Edit Course Details
@@ -123,10 +133,8 @@ export const columns: ColumnDef<Course>[] = [
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <DialogTrigger className="flex gap-1 items-center w-full">
-                  <>
-                    <Trash2 className="w-4 h-4 mr-2" />
-                    Delete Course
-                  </>
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Delete Course
                 </DialogTrigger>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -135,7 +143,7 @@ export const columns: ColumnDef<Course>[] = [
           <DialogContent className="sm:max-w-[425px] border">
             <DialogHeader>
               <DialogTitle>Are you absolutely sure?</DialogTitle>
-              <DialogDescription>This action cannot be undone. This will permanently delete this course and remove it&apos;s data from our database.</DialogDescription>
+              <DialogDescription>This action cannot be undone. This will permanently delete this course and remove its data from our database.</DialogDescription>
             </DialogHeader>
             <div className="flex w-full gap-2 items-center">
               <DialogClose asChild>
@@ -143,7 +151,7 @@ export const columns: ColumnDef<Course>[] = [
                   Cancel
                 </Button>
               </DialogClose>
-              <Button className="w-full rounded-md hover:scale-100" variant="destructive" onClick={onDelete}>
+              <Button className="w-full rounded-md hover:scale-100" variant="destructive" onClick={onDelete} disabled={isLoading}>
                 Delete Course
               </Button>
             </div>

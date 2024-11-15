@@ -30,11 +30,6 @@ const CoursesPage = async () => {
         </div>
         <DataTable columns={columns} data={courses} />
       </div>
-      <div className="p-6">
-        <Link href="/dashboard/admin/create">
-          <Button>New Course</Button>
-        </Link>
-      </div>
     </>
   );
 };

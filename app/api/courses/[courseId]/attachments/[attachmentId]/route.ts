@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 export async function DELETE(req: Request, { params }: { params: { courseId: string; attachmentId: string } }) {
   try {
     const { userId } = await auth();
-    const { url } = await req.json();
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -31,7 +30,7 @@ export async function DELETE(req: Request, { params }: { params: { courseId: str
 
     return NextResponse.json(attachment);
   } catch (error) {
-    console.log("[COURSE_ATTACHMENT]", error);
+    console.log("[ATTACHMENT_DELETE]", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

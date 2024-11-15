@@ -70,7 +70,7 @@ export default function ChaptersForm({ initialData, courseId }: ChaptersFormProp
   };
 
   const onEdit = (id: string) => {
-    router.push(`/dashboard/admin/courses/${courseId}/chapters/${id}`);
+    router.push(`/dashboard/teacher/courses/${courseId}/chapters/${id}`);
   };
 
   return (
