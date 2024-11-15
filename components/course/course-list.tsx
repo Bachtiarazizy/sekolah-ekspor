@@ -21,7 +21,7 @@ const CoursesList = ({ items }: CourseListProps) => {
           return (
             <CourseCard
               key={item.id}
-              id={item.id}
+              courseId={item.id}
               title={item.title}
               chaptersLength={item.chapters.length}
               imageUrl={item.imageUrl!}
