@@ -10,7 +10,7 @@ import { IconBadge } from "../ui/icon.badge";
 import { formatPrice } from "@/lib/format";
 
 interface CourseCardProps {
-  id: string;
+  courseId: string;
   title: string;
   description: string;
   imageUrl: string;
@@ -20,9 +20,9 @@ interface CourseCardProps {
   category?: string;
 }
 
-const CourseCard = ({ id, title, imageUrl, price, progress, category, chaptersLength, description }: CourseCardProps) => {
+const CourseCard = ({ courseId, title, imageUrl, price, progress, category, chaptersLength, description }: CourseCardProps) => {
   return (
-    <Link href={`/courses/${id}`}>
+    <Link href={`/courses/${courseId}`}>
       <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 h-full">
         <div className="relative w-full aspect-ratio rounded-md overflow-hidden">
           <Image fill className="object-cover" alt={title} src={imageUrl} />
