@@ -1,52 +1,47 @@
 "use client";
 
-import qs from "query-string";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-import { useDebounce } from "@/hooks/use-debounce";
+import qs from "query-string";
 
-const SearchInput = ({ className }: { className?: string }) => {
+const SearchInput = () => {
   const [value, setValue] = useState("");
-  const debouncedValue = useDebounce(value);
-
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
 
-  const currentCategoryId = searchParams.get("categoryId");
-
   useEffect(() => {
+    const currentTitle = searchParams.get("title");
+    if (currentTitle) {
+      setValue(currentTitle);
+    }
+  }, [searchParams]);
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const current = qs.parse(searchParams.toString());
     const url = qs.stringifyUrl(
       {
         url: pathname,
         query: {
-          categoryId: currentCategoryId,
-          title: debouncedValue,
+          ...current,
+          title: value,
         },
       },
       { skipEmptyString: true, skipNull: true }
     );
 
     router.push(url);
-  }, [debouncedValue, currentCategoryId, router, pathname]);
+  };
 
   return (
-    <div className={cn("relative", className)}>
+    <form onSubmit={onSubmit} className="relative">
       <Search className="h-4 w-4 absolute top-3 left-3 text-slate-600" />
-      <Input
-        onChange={(e) => {
-          router.push("/dashboard/student/search");
-          setValue(e.target.value);
-        }}
-        value={value}
-        className="w-full pl-9 text-secondary-foreground rounded-full focus-visible:ring-primary/50"
-        placeholder="Search for a course"
-      />
-    </div>
+      <Input onChange={(e) => setValue(e.target.value)} value={value} className="w-full pl-9 rounded-full bg-slate-100 focus-visible:ring-slate-200" placeholder="Search for a course" />
+    </form>
   );
 };
 

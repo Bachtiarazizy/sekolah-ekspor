@@ -1,53 +1,50 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import SearchInput from "@/components/search-input";
-import CoursesList from "@/components/course/course-list";
-import Categories from "./_components/categories";
 import { getCourses } from "@/actions/get-courses";
+import CoursesList from "@/components/course/course-list";
+import prisma from "@/lib/db";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import Categories from "./_components/categories";
+import SearchInput from "@/components/search-input";
+import { Suspense } from "react";
 
-interface ClientSearchPageProps {
-  initialCategories: Category[];
-  initialSearchParams: {
+interface SearchPageProps {
+  searchParams: {
     title: string;
     categoryId: string;
   };
 }
 
-const ClientSearchPage = ({ initialCategories, initialSearchParams }: ClientSearchPageProps) => {
-  const searchParams = useSearchParams();
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+const SearchPage = async ({ searchParams }: SearchPageProps) => {
+  const { userId } = await auth();
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      setIsLoading(true);
+  if (!userId) {
+    return redirect("/");
+  }
 
-      const updatedCourses = await getCourses({
-        userId: auth().userId,
-        title: searchParams.get("title") || initialSearchParams.title,
-        categoryId: searchParams.get("categoryId") || initialSearchParams.categoryId,
-      });
+  const categories = await prisma.category.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  });
 
-      setCourses(updatedCourses);
-      setIsLoading(false);
-    };
-
-    fetchCourses();
-  }, [searchParams]);
+  const courses = await getCourses({
+    userId: userId,
+    ...searchParams,
+  });
 
   return (
     <>
       <div className="px-6 pt-6 md:hidden md:mb-0 block">
-        <SearchInput />
+        <Suspense fallback={<div>Loading search...</div>}>
+          <SearchInput />
+        </Suspense>
       </div>
-      <Categories items={initialCategories} />
+      <Categories items={categories} />
       <div className="px-6 overflow-y-scroll bg-secondary mx-0 md:mx-auto py-6 rounded-none md:h-[calc(100vh-170px)] md:rounded-none md:rounded-bl-3xl md:mt-1 md:rounded-tl-xl container">
-        {isLoading ? <p>Loading...</p> : <CoursesList items={courses} />}
+        <CoursesList items={courses} />
       </div>
     </>
   );
 };
 
-export default ClientSearchPage;
+export default SearchPage;
