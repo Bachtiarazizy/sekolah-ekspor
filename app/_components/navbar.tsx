@@ -2,8 +2,15 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
+import { useAuth } from "@clerk/nextjs";
+import { isTeacher } from "@/lib/teacher";
 
 export default function Navbar() {
+  const { userId } = useAuth();
+
+  // Determine dashboard link based on user role
+  const dashboardLink = isTeacher(userId) ? "/dashboard/teacher/courses" : "/dashboard/student/dashboard";
+
   return (
     <div className="w-full flex justify-between items-center bg-white px-4 py-5 sm:px-6 lg:px-16 border-b shadow-sm sticky top-0 z-20">
       <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary">
@@ -20,7 +27,7 @@ export default function Navbar() {
 
         {/* Komponen untuk user yang sudah login */}
         <SignedIn>
-          <Link href="/dashboard/teacher/courses">
+          <Link href={dashboardLink}>
             <Button>Dashboard</Button>
           </Link>
           <UserButton
