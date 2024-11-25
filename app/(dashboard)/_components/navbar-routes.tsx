@@ -7,15 +7,26 @@ import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { isTeacher } from "@/lib/teacher";
+import { useState, useEffect } from "react";
 
 export const NavbarRoutes = () => {
-  const { userId } = useAuth(); // Make sure to type userId correctly if necessary
+  const { userId } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
 
-  const isTeacherPage = pathname?.startsWith("/dashboard/teacher");
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Don't render anything until client-side hydration is complete
+  if (!mounted) {
+    return null;
+  }
+
+  const isTeacherPage = pathname?.startsWith("/teacher");
   const isPlayerPage = pathname?.includes("/chapter");
-  const isSearchPage = pathname?.startsWith("/dashboard/student/search");
+  const isSearchPage = pathname?.startsWith("/student/search");
 
   return (
     <>
@@ -26,14 +37,14 @@ export const NavbarRoutes = () => {
       )}
       <div className="flex gap-x-2 ml-auto">
         {isTeacherPage || isPlayerPage ? (
-          <Link href={"/dashboard/student/dashboard"}>
+          <Link href="/student/dashboard">
             <Button size="sm" variant="ghost">
               <LogOut className="h-4 w-4 mr-2" />
               Exit
             </Button>
           </Link>
-        ) : isTeacher(userId) ? ( // Fixed the condition here
-          <Link href={"/dashboard/teacher/courses"}>
+        ) : isTeacher(userId) ? (
+          <Link href="/teacher/courses">
             <Button size="sm" variant="ghost">
               Teacher mode
             </Button>

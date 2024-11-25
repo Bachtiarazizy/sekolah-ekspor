@@ -21,24 +21,19 @@ const guestRoutes = [
   {
     icon: Layout,
     label: "Dashboard",
-    href: "/dashboard/student",
+    href: "/student/dashboard",
   },
   {
     icon: Compass,
     label: "Browse",
-    href: "/dashboard/student/search",
-  },
-  {
-    icon: CircleHelp,
-    label: "Help center",
-    href: "/customer-service",
+    href: "/student/search",
   },
 ];
 
 export const SidebarRoutes = () => {
   const pathname = usePathname();
 
-  const isTeacherPage = pathname?.includes("/dashboard/teacher");
+  const isTeacherPage = pathname?.includes("/teacher");
 
   const routes = isTeacherPage ? teacherRoutes : guestRoutes;
 

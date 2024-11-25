@@ -3,7 +3,12 @@ import { withUt } from "uploadthing/tw";
 
 const config: Config = {
   darkMode: ["class"],
-  content: ["./pages/**/*.{js,ts,jsx,tsx,mdx}", "./components/**/*.{js,ts,jsx,tsx,mdx}", "./app/**/*.{js,ts,jsx,tsx,mdx}"],
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "node_modules/preline/dist/*.js", // Moved inside the `content` array
+  ],
   theme: {
     extend: {
       animation: {
@@ -63,6 +68,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("preline/plugin")],
 };
+
 export default withUt(config);

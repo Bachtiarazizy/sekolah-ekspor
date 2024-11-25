@@ -1,143 +1,155 @@
 import React from "react";
+import { Share, Heart, MessageCircle, Link, Twitter, Facebook, Linkedin } from "lucide-react";
 
-export default function page() {
+interface Author {
+  name: string;
+  image: string;
+  bio: string;
+  articles: number;
+  followers: string;
+}
+
+interface BlogPost {
+  author: Author;
+  date: string;
+  readTime: string;
+  title: string;
+  content: React.ReactNode;
+  likes: number;
+  comments: number;
+  tags: string[];
+}
+
+const BlogArticle = () => {
+  const author: Author = {
+    name: "Leyla Ludic",
+    image: "/api/placeholder/320/320",
+    bio: "Leyla is a Customer Success Specialist at Preline and spends her time speaking to in-house recruiters all over the world.",
+    articles: 56,
+    followers: "1k+",
+  };
+
+  const post: BlogPost = {
+    author,
+    date: "Jan 18",
+    readTime: "8 min read",
+    title: "Announcing a free plan for small teams",
+    likes: 875,
+    comments: 16,
+    tags: ["Plan", "Web development", "Free", "Team"],
+    content: (
+      <div className="space-y-5 md:space-y-8">
+        <div className="space-y-3">
+          <p className="text-lg text-gray-800 dark:text-neutral-200">
+            At preline, our mission has always been focused on bringing openness and transparency to the design process. We've always believed that by providing a space where designers can share ongoing work not only empowers them to make
+            better products, it also helps them grow.
+          </p>
+        </div>
+
+        <p className="text-lg text-gray-800 dark:text-neutral-200">We're proud to be a part of creating a more open culture and to continue building a product that supports this vision.</p>
+
+        <figure>
+          <img className="w-full object-cover rounded-xl" src="/api/placeholder/560/320" alt="Blog Image" />
+          <figcaption className="mt-3 text-sm text-center text-gray-500 dark:text-neutral-500">A woman sitting at a table.</figcaption>
+        </figure>
+
+        <blockquote className="text-center p-4 sm:px-7">
+          <p className="text-xl font-medium text-gray-800 md:text-2xl md:leading-normal xl:text-2xl xl:leading-normal dark:text-neutral-200">
+            To say that switching to Preline has been life-changing is an understatement. My business has tripled and I got my life back.
+          </p>
+          <p className="mt-5 text-gray-800 dark:text-neutral-200">Nicole Grazioso</p>
+        </blockquote>
+      </div>
+    ),
+  };
+
   return (
     <>
-      <section>
-        <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-          <div className="max-w-3xl">
-            <h2 className="text-3xl font-bold sm:text-4xl">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod alias doloribus impedit.</h2>
-          </div>
+      <div className="max-w-3xl px-4 pt-6 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
+        <div className="max-w-2xl">
+          {/* Author section */}
+          <div className="flex justify-between items-center mb-6">
+            <div className="flex w-full sm:items-center gap-x-5 sm:gap-x-3">
+              <div className="shrink-0">
+                <img className="h-12 w-12 rounded-full" src={author.image} alt="Author" />
+              </div>
 
-          <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
-            <div className="relative h-64 overflow-hidden sm:h-80 lg:h-full">
-              <img
-                alt=""
-                src="https://images.unsplash.com/photo-1496843916299-590492c751f4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-            </div>
+              <div className="grow">
+                <div className="flex justify-between items-center gap-x-2">
+                  <div>
+                    <div className="inline-flex items-center">
+                      <span className="font-semibold text-gray-800 dark:text-neutral-200">{author.name}</span>
+                    </div>
 
-            <div className="lg:py-16">
-              <article className="space-y-4 text-gray-600">
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut qui hic atque tenetur quis eius quos ea neque sunt, accusantium soluta minus veniam tempora deserunt? Molestiae eius quidem quam repellat.</p>
+                    <ul className="text-xs text-gray-500 dark:text-neutral-500">
+                      <li className="inline-block relative pr-6 last:pr-0 last-of-type:before:hidden before:absolute before:top-1/2 before:right-2 before:-translate-y-1/2 before:w-1 before:h-1 before:bg-gray-300 before:rounded-full dark:text-neutral-400 dark:before:bg-neutral-600">
+                        {post.date}
+                      </li>
+                      <li className="inline-block relative pr-6 last:pr-0 last-of-type:before:hidden before:absolute before:top-1/2 before:right-2 before:-translate-y-1/2 before:w-1 before:h-1 before:bg-gray-300 before:rounded-full dark:text-neutral-400 dark:before:bg-neutral-600">
+                        {post.readTime}
+                      </li>
+                    </ul>
+                  </div>
 
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum explicabo quidem voluptatum voluptas illo accusantium ipsam quis, vel mollitia? Vel provident culpa dignissimos possimus, perferendis consectetur odit
-                  accusantium dolorem amet voluptates aliquid, ducimus tempore incidunt quas. Veritatis molestias tempora distinctio voluptates sint! Itaque quasi corrupti, sequi quo odit illum impedit!
-                </p>
-              </article>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-          <header className="text-center">
-            <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">New Collection</h2>
-
-            <p className="mx-auto mt-4 max-w-md text-gray-500">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque praesentium cumque iure dicta incidunt est ipsam, officia dolor fugit natus?</p>
-          </header>
-
-          <ul className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-3">
-            <li>
-              <a href="#" className="group relative block">
-                <img
-                  src="https://images.unsplash.com/photo-1618898909019-010e4e234c55?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-                  alt=""
-                  className="aspect-square w-full object-cover transition duration-500 group-hover:opacity-90"
-                />
-
-                <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
-                  <h3 className="text-xl font-medium text-white">Casual Trainers</h3>
-
-                  <span className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">Shop Now</span>
+                  <button className="py-1.5 px-2.5 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700">
+                    <Twitter className="w-3.5 h-3.5" />
+                    Tweet
+                  </button>
                 </div>
-              </a>
-            </li>
+              </div>
+            </div>
+          </div>
 
-            <li>
-              <a href="#" className="group relative block">
-                <img
-                  src="https://images.unsplash.com/photo-1624623278313-a930126a11c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-                  alt=""
-                  className="aspect-square w-full object-cover transition duration-500 group-hover:opacity-90"
-                />
+          {/* Content */}
+          <div className="space-y-5 md:space-y-8">
+            <div className="space-y-3">
+              <h2 className="text-2xl font-bold md:text-3xl dark:text-white">{post.title}</h2>
+            </div>
+            {post.content}
 
-                <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
-                  <h3 className="text-xl font-medium text-white">Winter Jumpers</h3>
-
-                  <span className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">Shop Now</span>
-                </div>
-              </a>
-            </li>
-
-            <li className="lg:col-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1">
-              <a href="#" className="group relative block">
-                <img
-                  src="https://images.unsplash.com/photo-1593795899768-947c4929449d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2672&q=80"
-                  alt=""
-                  className="aspect-square w-full object-cover transition duration-500 group-hover:opacity-90"
-                />
-
-                <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
-                  <h3 className="text-xl font-medium text-white">Skinny Jeans Blue</h3>
-
-                  <span className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white">Shop Now</span>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <section className="overflow-hidden bg-[url(https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=2670&auto=format&fit=crop)] bg-cover bg-top bg-no-repeat">
-        <div className="bg-black/50 p-8 md:p-12 lg:px-16 lg:py-24">
-          <div className="text-center ltr:sm:text-left rtl:sm:text-right">
-            <h2 className="text-2xl font-bold text-white sm:text-3xl md:text-5xl">Latest Shirts</h2>
-
-            <p className="hidden max-w-lg text-white/90 md:mt-6 md:block md:text-lg md:leading-relaxed">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore officia corporis quasi doloribus iure architecto quae voluptatum beatae excepturi dolores.
-            </p>
-
-            <div className="mt-4 sm:mt-8">
-              <a href="#" className="inline-block rounded-full bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-yellow-400">
-                Get Yours Today
-              </a>
+            {/* Tags */}
+            <div>
+              {post.tags.map((tag, index) => (
+                <a
+                  key={index}
+                  className="m-1 inline-flex items-center gap-1.5 py-2 px-3 rounded-full text-sm bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+                  href="#"
+                >
+                  {tag}
+                </a>
+              ))}
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section>
-        <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-          <div className="max-w-3xl">
-            <h2 className="text-3xl font-bold sm:text-4xl">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod alias doloribus impedit.</h2>
-          </div>
+      {/* Sticky Share Group */}
+      <div className="sticky bottom-6 inset-x-0 text-center">
+        <div className="inline-block bg-white shadow-md rounded-full py-3 px-4 dark:bg-neutral-800">
+          <div className="flex items-center gap-x-1.5">
+            <button className="flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-none focus:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-200">
+              <Heart className="w-4 h-4" />
+              {post.likes}
+            </button>
 
-          <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
-            <div className="relative h-64 overflow-hidden sm:h-80 lg:h-full">
-              <img
-                alt=""
-                src="https://images.unsplash.com/photo-1496843916299-590492c751f4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-            </div>
+            <div className="block h-3 border-e border-gray-300 mx-3 dark:border-neutral-600" />
 
-            <div className="lg:py-16">
-              <article className="space-y-4 text-gray-600">
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut qui hic atque tenetur quis eius quos ea neque sunt, accusantium soluta minus veniam tempora deserunt? Molestiae eius quidem quam repellat.</p>
+            <button className="flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-none focus:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-200">
+              <MessageCircle className="w-4 h-4" />
+              {post.comments}
+            </button>
 
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum explicabo quidem voluptatum voluptas illo accusantium ipsam quis, vel mollitia? Vel provident culpa dignissimos possimus, perferendis consectetur odit
-                  accusantium dolorem amet voluptates aliquid, ducimus tempore incidunt quas. Veritatis molestias tempora distinctio voluptates sint! Itaque quasi corrupti, sequi quo odit illum impedit!
-                </p>
-              </article>
-            </div>
+            <div className="block h-3 border-e border-gray-300 mx-3 dark:border-neutral-600" />
+
+            <button className="flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-none focus:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-200">
+              <Share className="w-4 h-4" />
+              Share
+            </button>
           </div>
         </div>
-      </section>
+      </div>
     </>
   );
-}
+};
+
+export default BlogArticle;

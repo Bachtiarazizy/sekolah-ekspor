@@ -13,9 +13,10 @@ export default function Navbar() {
 
   return (
     <div className="w-full flex justify-between items-center bg-white px-4 py-5 sm:px-6 lg:px-16 border-b shadow-sm sticky top-0 z-20">
-      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary">
-        Sekolah<span className="text-red-500">Ekspor</span>
-      </h1>
+      <div>
+        <h1 className="text-lg sm:text-xl lg:text-2xl font-medium text-primary">Global Skills</h1>
+        <p className="text-sm text-gray-500 text-center mt-0">Aacademy</p>
+      </div>
 
       <div className="flex items-center gap-3">
         {/* Komponen untuk user yang belum login */}
@@ -27,7 +28,7 @@ export default function Navbar() {
 
         {/* Komponen untuk user yang sudah login */}
         <SignedIn>
-          <Link href="dashboard/teacher/courses">
+          <Link href="/student/dashboard">
             <Button>Dashboard</Button>
           </Link>
           <UserButton

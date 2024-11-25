@@ -1,47 +1,43 @@
 "use client";
 
 import { Search } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { Input } from "@/components/ui/input";
 import qs from "query-string";
+import { Input } from "@/components/ui/input";
+import { useDebounce } from "@/hooks/use-debounce";
 
 const SearchInput = () => {
-  const [value, setValue] = useState("");
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const categoryId = searchParams.get("categoryId");
+  const title = searchParams.get("title");
+
+  const [value, setValue] = useState(title || "");
+  const debouncedValue = useDebounce(value);
 
   useEffect(() => {
-    const currentTitle = searchParams.get("title");
-    if (currentTitle) {
-      setValue(currentTitle);
-    }
-  }, [searchParams]);
+    const query = {
+      title: debouncedValue,
+      categoryId: categoryId,
+    };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const current = qs.parse(searchParams.toString());
     const url = qs.stringifyUrl(
       {
-        url: pathname,
-        query: {
-          ...current,
-          title: value,
-        },
+        url: window.location.pathname,
+        query,
       },
-      { skipEmptyString: true, skipNull: true }
+      { skipNull: true, skipEmptyString: true }
     );
 
     router.push(url);
-  };
+  }, [debouncedValue, router, categoryId]);
 
   return (
-    <form onSubmit={onSubmit} className="relative">
+    <div className="relative">
       <Search className="h-4 w-4 absolute top-3 left-3 text-slate-600" />
-      <Input onChange={(e) => setValue(e.target.value)} value={value} className="w-full pl-9 rounded-full bg-slate-100 focus-visible:ring-slate-200" placeholder="Search for a course" />
-    </form>
+      <Input onChange={(e) => setValue(e.target.value)} value={value} className="w-full md:w-[300px] pl-9 rounded-full bg-slate-100 focus-visible:ring-slate-200" placeholder="Search for a course" />
+    </div>
   );
 };
 

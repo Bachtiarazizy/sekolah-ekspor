@@ -94,10 +94,12 @@ const page = () => {
   return (
     <div className="flex flex-col gap-6 max-w-full overflow-x-hidden">
       <section className="flex flex-col items-center justify-center h-full container gap-6 pt-10 md:pt-24 lg:pt-36">
-        <h1 className="font-bold text-2xl max-w-none sm:text-3xl sm:max-w-3xl md:text-4xl md:max-w-4xl lg:text-6xl lg:max-w-6xl text-center">
-          Preparing Indonesia's <span className="text-primary">Future Export Leaders</span>
+        <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-center max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[65%]">
+          Empowering Indonesia's <span className="text-primary">Golden Generation for 2045</span>
         </h1>
-        <p className="text-muted-foreground text-sm md:text-base max-w-3xl text-center font-light">Empowering the Next Generation of Indonesian Export Champions</p>
+        <p className="text-muted-foreground text-sm md:text-base text-center font-light max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[60%]">
+          Join the movement to equip young Indonesian talents with future-ready skills in export-import, digital marketing, investment, and more. Together, we’re shaping a globally competitive Indonesia.
+        </p>
       </section>
       <section className="flex flex-col items-center justify-center h-full gap-6 py-14 w-full">
         <Marquee pauseOnClick={true} className="!rotate-[-4deg]" speed={30}>
